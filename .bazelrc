@@ -1,0 +1,5 @@
+common --color=yes
+
+build --incompatible_enable_cc_toolchain_resolution
+
+try-import %workspace%/.bazelrc.user
