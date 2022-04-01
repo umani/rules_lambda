@@ -1,3 +1,5 @@
+"""Macros and rules to set up Zig toolchains for cross-compilation"""
+
 load("@bazel_skylib//lib:shell.bzl", "shell")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "read_user_netrc", "use_netrc")
 load("//lambdas/toolchains:zig_toolchain.bzl", "zig_cc_toolchain_config")
@@ -115,14 +117,15 @@ def zig_register_toolchains(
         version = _VERSION,
         url_template = ZIG_NIGHTLY_URL_TEMPLATE,
         sha256 = _SHA256):
-    """
-        Register the Zig toolchains.
+    """Repository rule for the Zig toolchains.
 
-        Downloads Zig binaries and sets up the toolchains.
-        @param register registers the given toolchains.
-        @param version the version of Zig to use.
-        @url_template tells Bazel where to download the Zig binaries.
-        @sha256 the sha256 for the Zig binaries.
+    Downloads Zig binaries and sets up the toolchains.
+
+    Args:
+        register: registers the given toolchains.
+        version: the version of Zig to use.
+        url_template: tells Bazel where to download the Zig binaries.
+        sha256: the sha256 for the Zig binaries.
     """
     zig_repository(
         name = "zig_sdk",
@@ -136,13 +139,18 @@ def zig_register_toolchains(
 
 # buildifier: disable=unnamed-macro
 def define_toolchain(absolute_path):
+    """Defines and registers the Zig toolchains.
+
+    Args:
+        absolute_path: The absolute path for the Zig installation
+    """
     native.filegroup(name = "empty")
     native.exports_files(["zig"], visibility = ["//visibility:public"])
     native.filegroup(name = "lib/std", srcs = native.glob(["lib/std/**"]))
 
     lazy_filegroups = {}
 
-    for zigcpu in ["aarch64"]:
+    for zigcpu in ["x64_86", "aarch64"]:
         zigtarget = "{}-linux-gnu".format(zigcpu)
 
         absolute_tool_paths = {}

@@ -1,9 +1,17 @@
 package(default_visibility = ["//visibility:public"])
 
 platform(
-    name = "lambda",
+    name = "lambda_aarch64",
     constraint_values = [
         "@platforms//os:linux",
         "@platforms//cpu:aarch64",
+    ],
+)
+
+platform(
+    name = "lambda_x64_86",
+    constraint_values = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x64_86",
     ],
 )
