@@ -1,0 +1,9 @@
+build --announce_rc
+
+common --color=yes
+build --verbose_failures
+test --test_output=errors --test_verbose_timeout_warnings
+
+build --disk_cache=~/.cache/bazel
+build --repository_cache=~/.cache/bazel-repo
+test --test_env=XDG_CACHE_HOME
