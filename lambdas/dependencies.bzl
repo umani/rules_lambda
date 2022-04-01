@@ -15,8 +15,9 @@ rules_rust_sha = "39655ab175e3c6b979f362f55f58085528f1647957b0e9b3a07f81d8a9c3ea
 rules_pkg_version = "0.6.0"
 rules_pkg_sha = "62eeb544ff1ef41d786e329e1536c1d541bb9bcad27ae984d57f18f314018e66"
 
-# WARNING: any changes in this function may be BREAKING CHANGES for users
+# WARNING: any changes in these macros may be BREAKING CHANGES for users
 # if they load us before their conflicting dependencies.
+
 def rules_lambda_dependencies():
     maybe(
         http_archive,
@@ -50,6 +51,7 @@ def rules_lambda_dependencies():
         sha256 = rules_pkg_sha,
     )
 
+def rust_lambda_dependencies():
     maybe(
         http_archive,
         name = "aspect_bazel_lib",

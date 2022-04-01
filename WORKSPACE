@@ -4,9 +4,11 @@ load("//:internal_dependencies.bzl", "rules_lambda_internal_dependencies")
 
 rules_lambda_internal_dependencies()
 
-load("//lambdas:dependencies.bzl", "rules_lambda_dependencies")
+load("//lambdas:dependencies.bzl", "rules_lambda_dependencies", "rust_lambda_dependencies")
 
 rules_lambda_dependencies()
+
+rust_lambda_dependencies()
 
 load("//lambdas/toolchains:zig_repositories.bzl", "zig_register_toolchains")
 
