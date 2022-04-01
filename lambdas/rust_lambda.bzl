@@ -1,7 +1,9 @@
-""" Macro to compile and package AWS Lambdas defined in Rust """
+"""Macro to compile and package AWS Lambdas defined in Rust"""
 
 load("@rules_rust//rust:defs.bzl", "rust_binary")
 load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
+load("@rules_pkg//:mappings.bzl", "pkg_files")
+load("@rules_pkg//:pkg.bzl", "pkg_zip")
 
 def rust_lambda(name, srcs, arch = "aarch64", visibility = "//visibility:private", **kwargs):
     """Compiles and packages an AWS Lambda written in Rust
@@ -36,10 +38,17 @@ def rust_lambda(name, srcs, arch = "aarch64", visibility = "//visibility:private
         srcs = [name],
         target_platform = platform,
     )
-    native.genrule(
-        name = name + "_packaged",
+
+    packaged_name = name + "_packaged_files"
+    pkg_files(
+        name = packaged_name,
         srcs = [target_name],
-        outs = [name + ".zip"],
-        cmd = "cp $(execpath %s) bootstrap && zip -q -j $@ bootstrap" % target_name,
+        renames = {
+            target_name: "bootstrap",
+        },
+    )
+    pkg_zip(
+        name = name + "_packaged",
+        srcs = [packaged_name],
         visibility = visibility,
     )

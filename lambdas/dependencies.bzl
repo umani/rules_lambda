@@ -1,6 +1,4 @@
-"""
-Starlark helper to fetch rules_lambda dependencies.
-"""
+"""Helper to fetch rules_lambda dependencies"""
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
@@ -13,6 +11,9 @@ aspect_bazel_lib_sha = "acad0272a64362354756a27f43bddd9150368ee8b96eb2c114cfd2f9
 
 rules_rust_version = "0.2.0"
 rules_rust_sha = "39655ab175e3c6b979f362f55f58085528f1647957b0e9b3a07f81d8a9c3ea0a"
+
+rules_pkg_version = "0.6.0"
+rules_pkg_sha = "62eeb544ff1ef41d786e329e1536c1d541bb9bcad27ae984d57f18f314018e66"
 
 # WARNING: any changes in this function may be BREAKING CHANGES for users
 # if they load us before their conflicting dependencies.
@@ -31,6 +32,22 @@ def rules_lambda_dependencies():
                 bazel_skylib_version,
             ),
         ],
+    )
+
+    maybe(
+        http_archive,
+        name = "rules_pkg",
+        urls = [
+            "https://mirror.bazel.build/github.com/bazelbuild/rules_pkg/releases/download/{}/rules_pkg-{}.tar.gz".format(
+                rules_pkg_version,
+                rules_pkg_version,
+            ),
+            "https://github.com/bazelbuild/rules_pkg/releases/download/{}/rules_pkg-{}.tar.gz".format(
+                rules_pkg_version,
+                rules_pkg_version,
+            ),
+        ],
+        sha256 = rules_pkg_sha,
     )
 
     maybe(
