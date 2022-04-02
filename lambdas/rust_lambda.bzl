@@ -50,5 +50,6 @@ def rust_lambda(name, srcs, arch = "aarch64", visibility = "//visibility:private
     pkg_zip(
         name = name + "_packaged",
         srcs = [packaged_name],
+        package_file_name = name + ".zip",
         visibility = visibility,
     )
