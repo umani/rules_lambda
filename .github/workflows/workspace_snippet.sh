@@ -14,7 +14,7 @@ http_archive(
     name = "rules_lambda",
     sha256 = "${SHA}",
     strip_prefix = "${PREFIX}",
-    url = "https://github.com/duarten/rules_lambda/archive/refs/tags/${TAG}.tar.gz",
+    url = "https://github.com/umani/rules_lambda/archive/refs/tags/${TAG}.tar.gz",
 )
 
 load("@rules_lambda//lambdas:dependencies.bzl", "rules_lambda_dependencies")
