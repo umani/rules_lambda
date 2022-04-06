@@ -84,6 +84,17 @@ def go_lambda_dependencies():
         http_archive,
         name = "io_bazel_rules_go",
         sha256 = rules_go_sha,
-        url = "https://github.com/bazelbuild/rules_go/releases/download/v{}/rules_go-v{}.zip"
-            .format(rules_go_version, rules_go_version),
+        url = "https://github.com/bazelbuild/rules_go/releases/download/v{}/rules_go-v{}.zip".format(
+            rules_go_version,
+            rules_go_version,
+        ),
+    )
+
+def node_lambda_dependencies():
+    maybe(
+        http_archive,
+        name = "aspect_bazel_lib",
+        sha256 = aspect_bazel_lib_sha,
+        strip_prefix = "bazel-lib-{}".format(aspect_bazel_lib_version),
+        url = "https://github.com/aspect-build/bazel-lib/archive/refs/tags/v{}.tar.gz".format(aspect_bazel_lib_version),
     )

@@ -3,20 +3,20 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 load("@rules_pkg//:pkg.bzl", "pkg_zip")
 
-def go_lambda(name, srcs, arch = "aarch64", visibility = "//visibility:private", **kwargs):
-    """Compiles and packages an AWS Lambda written in Go
+def go_lambda(name, srcs, arch = "x86_64", visibility = ["//visibility:private"], **kwargs):
+    """Compiles and packages an AWS Lambda written in Go.
 
     The macro expands to these targets:
     * [name] - the Go library for the host platform
     * [name]_binary - the Go binary for the host platform
-    * [name]_packaged - the packaged binary for the selected AWS Lambda platform, outputting [name].zip
+    * [name]_packaged - the packaged binary for the selected AWS Lambda platform, outputting `[name].zip`
 
     Args:
-        name: A name for the target
-        srcs: The Go source files
-        arch: The target architecture for the Lambda, x86_64 or aarch64 (the default)
-        visibility: The visibility of the target for the packaged lambda (defaults to private)
-        **kwargs: additional named parameters passed to go_library
+        name: A unique name for this rule.
+        srcs: The Go source files.
+        arch: The target architecture for the Lambda, `x86_64` or `aarch64`. Defaults to `aarch64`.
+        visibility: The visibility of the target for the packaged Lambda. Defaults to private.
+        **kwargs: additional named parameters passed to `go_library`
     """
     go_library(
         name = name,
@@ -25,10 +25,10 @@ def go_lambda(name, srcs, arch = "aarch64", visibility = "//visibility:private",
         **kwargs
     )
 
-    goarch = "arm64"
-    if arch == "x86_64":
-        platform = "amd64"
-    elif arch != "aarch64":
+    goarch = "amd64"
+    if arch == "aarch64":
+        fail("Go Lambdas don't support the aarch64 architecture")
+    elif arch != "x86_64":
         fail("Unsupported Lambda target architecture ", arch)
 
     bin_name = name + "_binary"
