@@ -1,8 +1,18 @@
-# load("@aspect_bazel_lib//lib:docs.bzl", "stardoc_with_diff_test", "update_docs")
+load("@aspect_bazel_lib//lib:docs.bzl", "stardoc_with_diff_test", "update_docs")
 
-# stardoc_with_diff_test(
-#     name = "rust_lambda",
-#     bzl_library_target = "//lambdas:rust_lambda",
-# )
+stardoc_with_diff_test(
+    name = "rust_lambda",
+    bzl_library_target = "//lambdas:rust_lambda",
+)
 
-# update_docs(name = "update")
+stardoc_with_diff_test(
+    name = "go_lambda",
+    bzl_library_target = "//lambdas:go_lambda",
+)
+
+stardoc_with_diff_test(
+    name = "node_lambda",
+    bzl_library_target = "//lambdas:node_lambda",
+)
+
+update_docs(name = "update")

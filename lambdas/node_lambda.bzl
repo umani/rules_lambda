@@ -3,7 +3,7 @@
 load("@aspect_bazel_lib//lib:directory_path.bzl", "make_directory_path")
 load("@aspect_bazel_lib//lib:copy_file.bzl", "copy_file")
 load("@bazel_skylib//lib:paths.bzl", "paths")
-load("@rules_pkg//:pkg.bzl", "pkg_zip")
+load("@rules_pkg//pkg:pkg.bzl", "pkg_zip")
 
 # Note: the `bundler` attribute is basically a workaround for the absence of
 # an esbuild rule. Currently, that rule is distributed through npm, but here
@@ -12,7 +12,7 @@ def node_lambda(name, bundler, srcs = [], deps = [], entry_point = None, entry_p
     """Packages one or more AWS Lambdas targetting Node.js.
 
     The macro expands to these targets:
-    * `[name]` - the Javascript bundle
+    * `[name]` - the Javascript bundle.
     * `[name]_packaged` - the packaged bundle, outputting `[name].zip`.
       If `entry_points` is specified, we use `entry_points[i]` instead of `name`.
 
@@ -20,20 +20,19 @@ def node_lambda(name, bundler, srcs = [], deps = [], entry_point = None, entry_p
         name: A unique name for this rule.
         bundler: A tool that produces the bundle. This attribute accepts a rule or macro with the
                 signature: `name, srcs, deps, entry_point, entry_points, external, define, minify, **kwargs`, where:
-                    `external` is a list of module names that are not included in the resulting bundle.
-                    `define` is a dict of global identifier replacements.
-                    `minify` indicates whether the bundle should be minified.
-                    `**kwargs` propagates the `visibility` attribute.
+                 `external` is a list of module names that are not included in the resulting bundle;
+                 `define` is a dict of global identifier replacements;
+                 `minify` indicates whether the bundle should be minified;
+                 `**kwargs` propagates the `visibility` attribute.
                 The remaining attributes are forwarded the corresponding values passed to this rule.
         srcs: The Lambda source files.
-        entry_point: The bundle’s entry point (e.g. your main.js or app.js or index.js). This is a shortcut for the
+        entry_point: The bundle's entry point (e.g. your main.js or app.js or index.js). This is a shortcut for the
                      `entry_points` attribute with a single entry.
                      Specify either this attribute or `entry_point`, but not both.
-        entry_points: The bundle’s entry points (e.g. your main.js or app.js or index.js).
+        entry_points: The bundle's entry points (e.g. your main.js or app.js or index.js).
                       Specify either this attribute or `entry_point`, but not both.
         deps: Direct dependencies required to build the bundle.
-        visibility: The visibility of the targets for the bundle and the package Lambda.
-                    Defaults to private.
+        visibility: The visibility of the bundle and the packaged Lambda targets.
     """
     mode = name + "_mode"
     native.config_setting(

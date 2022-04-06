@@ -4,9 +4,13 @@ load("//:internal_dependencies.bzl", "rules_lambda_internal_dependencies")
 
 rules_lambda_internal_dependencies()
 
-load("//lambdas:dependencies.bzl", "rules_lambda_dependencies", "rust_lambda_dependencies")
+load("//lambdas:dependencies.bzl", "go_lambda_dependencies", "node_lambda_dependencies", "rules_lambda_dependencies", "rust_lambda_dependencies")
 
 rules_lambda_dependencies()
+
+go_lambda_dependencies()
+
+node_lambda_dependencies()
 
 rust_lambda_dependencies()
 

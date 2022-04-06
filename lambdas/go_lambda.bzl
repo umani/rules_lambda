@@ -1,22 +1,22 @@
 """Macro to compile and package AWS Lambdas defined in Go"""
 
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
-load("@rules_pkg//:pkg.bzl", "pkg_zip")
+load("@rules_pkg//pkg:pkg.bzl", "pkg_zip")
 
 def go_lambda(name, srcs, arch = "x86_64", visibility = ["//visibility:private"], **kwargs):
     """Compiles and packages an AWS Lambda written in Go.
 
     The macro expands to these targets:
-    * [name] - the Go library for the host platform
-    * [name]_binary - the Go binary for the host platform
-    * [name]_packaged - the packaged binary for the selected AWS Lambda platform, outputting `[name].zip`
+    * `[name]` - the Go library for the host platform.
+    * `[name]_binary` - the Go binary for the host platform.
+    * `[name]_packaged` - the packaged binary for the selected AWS Lambda platform, outputting `[name].zip`.
 
     Args:
         name: A unique name for this rule.
         srcs: The Go source files.
-        arch: The target architecture for the Lambda, `x86_64` or `aarch64`. Defaults to `aarch64`.
-        visibility: The visibility of the target for the packaged Lambda. Defaults to private.
-        **kwargs: additional named parameters passed to `go_library`
+        arch: The target architecture for the Lambda, `x86_64` or `aarch64`.
+        visibility: The visibility of `go_binary` and packaged Lambda targets.
+        **kwargs: additional named parameters passed to `go_library`.
     """
     go_library(
         name = name,

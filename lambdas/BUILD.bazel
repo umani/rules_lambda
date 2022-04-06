@@ -1,21 +1,48 @@
-# load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 
-# Stardoc doesn't work because @rules_pkg: https://github.com/bazelbuild/rules_pkg/issues/564
+# For stardoc
+exports_files([
+    "go_lambda.bzl",
+    "node_lambda.bzl",
+    "rust_lambda.bzl",
+])
 
-# # For stardoc
-# exports_files(["rust_lambda.bzl"])
+# For stardoc
+bzl_library(
+    name = "rust_lambda",
+    srcs = ["rust_lambda.bzl"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@aspect_bazel_lib//lib:transitions",
+        "@bazel_skylib//lib:paths",
+        "@bazel_skylib//rules:common_settings",
+        "@bazel_tools//tools/build_defs/cc:action_names.bzl",
+        "@bazel_tools//tools/cpp:toolchain_utils.bzl",
+        "@rules_pkg//pkg:bzl_srcs",
+        "@rules_rust//rust:bzl_lib",
+    ],
+)
 
-# # For stardoc
-# bzl_library(
-#     name = "rust_lambda",
-#     srcs = ["rust_lambda.bzl"],
-#     visibility = ["//visibility:public"],
-#     deps = [
-#         "@aspect_bazel_lib//lib:transitions",
-#         "@bazel_skylib//lib:paths",
-#         "@bazel_skylib//rules:common_settings",
-#         "@bazel_tools//tools/build_defs/cc:action_names.bzl",
-#         "@bazel_tools//tools/cpp:toolchain_utils.bzl",
-#         "@rules_rust//rust:bzl_lib",
-#     ],
-# )
+# For stardoc
+bzl_library(
+    name = "go_lambda",
+    srcs = ["go_lambda.bzl"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@io_bazel_rules_go//go:def",
+        "@rules_pkg//pkg:bzl_srcs",
+    ],
+)
+
+# For stardoc
+bzl_library(
+    name = "node_lambda",
+    srcs = ["node_lambda.bzl"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@aspect_bazel_lib//lib:copy_file",
+        "@aspect_bazel_lib//lib:directory_path",
+        "@aspect_bazel_lib//lib:paths",
+        "@rules_pkg//pkg:bzl_srcs",
+    ],
+)

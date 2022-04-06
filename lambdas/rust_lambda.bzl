@@ -2,21 +2,21 @@
 
 load("@rules_rust//rust:defs.bzl", "rust_binary")
 load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
-load("@rules_pkg//:mappings.bzl", "pkg_files")
-load("@rules_pkg//:pkg.bzl", "pkg_zip")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
+load("@rules_pkg//pkg:pkg.bzl", "pkg_zip")
 
 def rust_lambda(name, srcs, arch = "aarch64", visibility = ["//visibility:private"], **kwargs):
     """Compiles and packages an AWS Lambda written in Rust.
 
     The macro expands to these targets:
-    * [name] - the Rust binary for the host platform
-    * [name]_packaged - the packaged binary for the selected AWS Lambda platform, outputting `[name].zip`
+    * `[name]` - the Rust binary for the host platform.
+    * `[name]_packaged` - the packaged binary for the selected AWS Lambda platform, outputting `[name].zip`.
 
     Args:
         name: A unique name for this rule.
         srcs: The Rust source files.
-        arch: The target architecture for the Lambda, `x86_64` or `aarch64`. Defaults to `aarch64`.
-        visibility: The visibility of the target for the packaged Lambda. Defaults to private.
+        arch: The target architecture for the Lambda, `x86_64` or `aarch64`.
+        visibility: The visibility of the `rust_binary` and packaged Lambda targets.
         **kwargs: additional named parameters passed to `rust_binary`.
     """
     rust_binary(

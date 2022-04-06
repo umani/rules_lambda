@@ -6,14 +6,14 @@ load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 bazel_skylib_version = "1.2.1"
 bazel_skylib_sha = "f7be3474d42aae265405a592bb7da8e171919d74c16f082a5457840f06054728"
 
-aspect_bazel_lib_version = "0.7.0"
-aspect_bazel_lib_sha = "acad0272a64362354756a27f43bddd9150368ee8b96eb2c114cfd2f9e4ce6c13"
+aspect_bazel_lib_version = "0.8.2"
+aspect_bazel_lib_sha = "cd818c793f2d1fc9ae3ca2cbe90b5affd54db4a5ed1f1543831b78c7f14938c5"
 
 rules_rust_version = "0.2.0"
 rules_rust_sha = "39655ab175e3c6b979f362f55f58085528f1647957b0e9b3a07f81d8a9c3ea0a"
 
-rules_pkg_version = "0.6.0"
-rules_pkg_sha = "62eeb544ff1ef41d786e329e1536c1d541bb9bcad27ae984d57f18f314018e66"
+rules_pkg_version = "0.7.0"
+rules_pkg_sha = "8a298e832762eda1830597d64fe7db58178aa84cd5926d76d5b744d6558941c2"
 
 rules_go_version = "0.31.0"
 rules_go_sha = "f2dcd210c7095febe54b804bb1cd3a58fe8435a909db2ec04e31542631cf715c"
