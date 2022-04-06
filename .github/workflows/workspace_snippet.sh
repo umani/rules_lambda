@@ -25,6 +25,18 @@ load("@rules_pkg//:deps.bzl", "rules_pkg_dependencies")
 
 rules_pkg_dependencies()
 
+# Optional: if using Go lambdas, register dependencies
+
+load("@rules_lambda//lambdas:dependencies.bzl", "go_lambda_dependencies")
+
+go_lambda_dependencies()
+
+# Optional: if using Node lambdas, register dependencies
+
+load("@rules_lambda//lambdas:dependencies.bzl", "node_lambda_dependencies")
+
+node_lambda_dependencies()
+
 # Optional: if using Rust lambdas, register dependencies
 
 load("@rules_lambda//lambdas:dependencies.bzl", "rust_lambda_dependencies")
