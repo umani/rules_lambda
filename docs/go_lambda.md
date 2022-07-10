@@ -2,7 +2,7 @@
 
 Macro to compile and package AWS Lambdas defined in Go
 
-<a id="#go_lambda"></a>
+<a id="go_lambda"></a>
 
 ## go_lambda
 

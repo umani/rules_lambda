@@ -21,13 +21,13 @@ ZIG_URL_TEMPLATE = "https://ziglang.org/download/{version}/zig-{host_platform}-{
 
 ZIG_NIGHTLY_URL_TEMPLATE = "https://ziglang.org/builds/zig-{host_platform}-{version}.tar.xz"
 
-_VERSION = "0.10.0-dev.1623+0501962b4"
+_VERSION = "0.10.0-dev.2882+13d58258a"
 
 _SHA256 = {
-    "linux-x86_64": "040406d99ef93cbbfd7855576e8afb7409161b2bab2947e1fe96b3910ec62d52",
-    "linux-aarch64": "afd5b5bb55afb3785e9b70521f64308a37e4e6db3b55699c8d2c63e620d562f7",
-    "macos-x86_64": "ca00b4de38d8d32738e72b0c1efb1624adae22558f8fcdd9bf4ea2f568807705",
-    "macos-aarch64": "c3cb75d8a539f598fa5600db43a8bc0fbf53bfa77412754d0d5abfa73622c8a2",
+    "linux-x86_64": "2b7adf0eca93d300d62ecbaf781c75ff5dfc3e596413a3dac7412f7d7beb967a",
+    "linux-aarch64": "6cf7af93338072dfc76ae3259ea55d08a0cb75cd698b44f509fdd467b65d54fd",
+    "macos-x86_64": "c522f96102741e7b9f3eb50ac5756a95b9326c65a56f24f94bfef55b70cb876c",
+    "macos-aarch64": "5abccfc211b8876f5f8fd3299de80157ef430546e225a2bc9d5d3a5344b73b4e",
 }
 
 ZIG_TOOL_PATH = "tools/{zig_tool}"
@@ -147,8 +147,6 @@ def define_toolchain(absolute_path):
     native.filegroup(name = "empty")
     native.exports_files(["zig"], visibility = ["//visibility:public"])
     native.filegroup(name = "lib/std", srcs = native.glob(["lib/std/**"]))
-
-    lazy_filegroups = {}
 
     for zigcpu in ["x64_86", "aarch64"]:
         zigtarget = "{}-linux-gnu".format(zigcpu)

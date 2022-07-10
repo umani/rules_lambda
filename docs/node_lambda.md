@@ -2,7 +2,7 @@
 
 Macro to package AWS Lambdas defined in Javascript
 
-<a id="#node_lambda"></a>
+<a id="node_lambda"></a>
 
 ## node_lambda
 

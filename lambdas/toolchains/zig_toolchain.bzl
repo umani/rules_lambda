@@ -22,12 +22,15 @@ all_link_actions = [
     ACTION_NAMES.cpp_link_nodeps_dynamic_library,
 ]
 
-all_compile_actions = [
-    ACTION_NAMES.assemble,
+compile_and_link_actions = [
     ACTION_NAMES.c_compile,
+    ACTION_NAMES.cpp_compile,
+]
+
+other_compile_actions = [
+    ACTION_NAMES.assemble,
     ACTION_NAMES.cc_flags_make_variable,
     ACTION_NAMES.clif_match,
-    ACTION_NAMES.cpp_compile,
     ACTION_NAMES.cpp_header_parsing,
     ACTION_NAMES.cpp_module_codegen,
     ACTION_NAMES.cpp_module_compile,
@@ -36,25 +39,78 @@ all_compile_actions = [
     ACTION_NAMES.preprocess_assemble,
 ]
 
+def _compilation_mode_features():
+    actions = all_link_actions + compile_and_link_actions + other_compile_actions
+
+    dbg_feature = feature(
+        name = "dbg",
+        flag_sets = [
+            flag_set(
+                actions = actions,
+                flag_groups = [
+                    flag_group(
+                        flags = ["-g"],
+                    ),
+                ],
+            ),
+        ],
+    )
+
+    opt_feature = feature(
+        name = "opt",
+        flag_sets = [
+            flag_set(
+                actions = actions,
+                flag_groups = [
+                    flag_group(
+                        flags = ["-O3", "-DNDEBUG"],
+                    ),
+                ],
+            ),
+        ],
+    )
+
+    fastbuild_feature = feature(
+        name = "fastbuild",
+        flag_sets = [
+            flag_set(
+                actions = actions,
+                flag_groups = [
+                    flag_group(
+                        flags = ["-fno-lto", "-Wl,-S", "-O0"],
+                    ),
+                ],
+            ),
+        ],
+    )
+
+    return [
+        dbg_feature,
+        opt_feature,
+        fastbuild_feature,
+    ]
+
 def _zig_cc_toolchain_config_impl(ctx):
-    default_compiler_flags = feature(
-        name = "default_compiler_flags",
+    compiler_flags = [
+        "-target",
+        ctx.attr.target,
+        "-no-canonical-prefixes",
+        "-Wno-builtin-macro-redefined",
+        "-D__DATE__=\"redacted\"",
+        "-D__TIMESTAMP__=\"redacted\"",
+        "-D__TIME__=\"redacted\"",
+    ]
+    no_gc_sections = ["-Wl,--no-gc-sections"]
+
+    compile_and_link_flags = feature(
+        name = "compile_and_link_flags",
         enabled = True,
         flag_sets = [
             flag_set(
-                actions = all_compile_actions,
+                actions = compile_and_link_actions,
                 flag_groups = [
-                    flag_group(
-                        flags = [
-                            "-target",
-                            ctx.attr.target,
-                            "-no-canonical-prefixes",
-                            "-Wno-builtin-macro-redefined",
-                            "-D__DATE__=\"redacted\"",
-                            "-D__TIMESTAMP__=\"redacted\"",
-                            "-D__TIME__=\"redacted\"",
-                        ],
-                    ),
+                    flag_group(flags = no_gc_sections),
+                    flag_group(flags = compiler_flags),
                 ],
             ),
         ],
@@ -66,22 +122,33 @@ def _zig_cc_toolchain_config_impl(ctx):
         flag_sets = [
             flag_set(
                 actions = all_link_actions,
-                flag_groups = ([
+                flag_groups = [
                     flag_group(
-                        flags = [
-                            "-target",
-                            ctx.attr.target,
-                        ],
+                        flags = ["-target", ctx.attr.target] + no_gc_sections,
                     ),
-                ]),
+                ],
+            ),
+        ],
+    )
+
+    other_compile_flags = feature(
+        name = "other_compile_flags",
+        enabled = True,
+        flag_sets = [
+            flag_set(
+                actions = other_compile_actions,
+                flag_groups = [
+                    flag_group(flags = compiler_flags),
+                ],
             ),
         ],
     )
 
     features = [
-        default_compiler_flags,
+        compile_and_link_flags,
+        other_compile_flags,
         default_linker_flags,
-    ]
+    ] + _compilation_mode_features()
 
     return cc_common.create_cc_toolchain_config_info(
         ctx = ctx,

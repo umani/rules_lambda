@@ -2,7 +2,7 @@
 
 Macro to compile and package AWS Lambdas defined in Rust
 
-<a id="#rust_lambda"></a>
+<a id="rust_lambda"></a>
 
 ## rust_lambda
 
