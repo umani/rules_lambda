@@ -8,19 +8,14 @@ bazel_skylib = struct(
     sha = "f7be3474d42aae265405a592bb7da8e171919d74c16f082a5457840f06054728",
 )
 
-bazel_zig = struct(
-    version = "0.8.2",
-    sha = "216ee0e15417aa7ed3d1cb4627485fd00ae142e6bba10d3bcad1590e99e13e4c",
-)
-
 aspect_bazel_lib = struct(
-    version = "0.8.2",
-    sha = "cd818c793f2d1fc9ae3ca2cbe90b5affd54db4a5ed1f1543831b78c7f14938c5",
+    version = "1.10.0",
+    sha = "33332c0cd7b5238b5162b5177da7f45a05641f342cf6d04080b9775233900acf",
 )
 
 rules_rust = struct(
-    version = "0.2.0",
-    sha = "39655ab175e3c6b979f362f55f58085528f1647957b0e9b3a07f81d8a9c3ea0a",
+    version = "0.9.0",
+    sha = "6bfe75125e74155955d8a9854a8811365e6c0f3d33ed700bc17f39e32522c822",
 )
 
 rules_pkg = struct(
@@ -29,8 +24,8 @@ rules_pkg = struct(
 )
 
 rules_go = struct(
-    version = "0.31.0",
-    sha = "f2dcd210c7095febe54b804bb1cd3a58fe8435a909db2ec04e31542631cf715c",
+    version = "0.34.0",
+    sha = "16e9fca53ed6bd4ff4ad76facc9b7b651a89db1689a2877d6fd7b82aa824e366",
 )
 
 # WARNING: any changes in these macros may be BREAKING CHANGES for users
@@ -93,23 +88,6 @@ def rust_lambda_dependencies():
             ),
         ],
     )
-
-    # maybe(
-    #     http_archive,
-    #     name = "bazel-zig-cc",
-    #     sha256 = bazel_zig.sha,
-    #     strip_prefix = "bazel-zig-cc-v{}".format(bazel_zig.version),
-    #     urls = ["https://git.sr.ht/~motiejus/bazel-zig-cc/archive/v{}.tar.gz".format(bazel_zig.version)],
-    # )
-
-    # load("@bazel-zig-cc//toolchain:defs.bzl", zig_toolchains = "toolchains")
-
-    # zig_toolchains(
-    #     version = "0.9.1",
-    #     url_formats = [
-    #         "https://ziglang.org/download/{version}/zig-{host_platform}-{version}.tar.xz",
-    #     ],
-    # )
 
 def go_lambda_dependencies():
     maybe(
