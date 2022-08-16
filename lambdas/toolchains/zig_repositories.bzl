@@ -21,17 +21,17 @@ ZIG_URL_TEMPLATE = "https://ziglang.org/download/{version}/zig-{host_platform}-{
 
 ZIG_NIGHTLY_URL_TEMPLATE = "https://ziglang.org/builds/zig-{host_platform}-{version}.tar.xz"
 
-_VERSION = "0.10.0-dev.2882+13d58258a"
+_VERSION = "0.10.0-dev.3529+44a6172ed"
 
 _SHA256 = {
-    "linux-x86_64": "2b7adf0eca93d300d62ecbaf781c75ff5dfc3e596413a3dac7412f7d7beb967a",
-    "linux-aarch64": "6cf7af93338072dfc76ae3259ea55d08a0cb75cd698b44f509fdd467b65d54fd",
-    "macos-x86_64": "c522f96102741e7b9f3eb50ac5756a95b9326c65a56f24f94bfef55b70cb876c",
-    "macos-aarch64": "5abccfc211b8876f5f8fd3299de80157ef430546e225a2bc9d5d3a5344b73b4e",
+    "linux-x86_64": "11753bbb58acb5bbc133b678f9b8b8edf2c3603f1c5cd493afb3026f2ccd81f9",
+    "linux-aarch64": "7fc31ebc02de51091ba9d0176b0abb3a374f6f45cf111f7924becc67943bd854",
+    "macos-x86_64": "f098c41ab617718564f61fdd31f09066cd8fc1f1612f44c6b3c941a1faa6306f",
+    "macos-aarch64": "aa138ec924106e0cdad49cf4710efb91ff9ccef187a8b524e2747795aaff8f71",
 }
 
 ZIG_TOOL_PATH = "tools/{zig_tool}"
-ZIG_TOOL_WRAPPER = """#!/bin/bash
+ZIG_TOOL_WRAPPER = """#!/usr/bin/env bash
 set -e
 
 if [[ -n "$TMPDIR" ]]; then

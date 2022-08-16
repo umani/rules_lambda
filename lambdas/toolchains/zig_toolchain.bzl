@@ -77,7 +77,7 @@ def _compilation_mode_features():
                 actions = actions,
                 flag_groups = [
                     flag_group(
-                        flags = ["-fno-lto", "-Wl,-S", "-O0"],
+                        flags = ["-fno-lto", "-Wl,-S"],
                     ),
                 ],
             ),
@@ -100,7 +100,6 @@ def _zig_cc_toolchain_config_impl(ctx):
         "-D__TIMESTAMP__=\"redacted\"",
         "-D__TIME__=\"redacted\"",
     ]
-    no_gc_sections = ["-Wl,--no-gc-sections"]
 
     compile_and_link_flags = feature(
         name = "compile_and_link_flags",
@@ -109,7 +108,6 @@ def _zig_cc_toolchain_config_impl(ctx):
             flag_set(
                 actions = compile_and_link_actions,
                 flag_groups = [
-                    flag_group(flags = no_gc_sections),
                     flag_group(flags = compiler_flags),
                 ],
             ),
@@ -124,7 +122,7 @@ def _zig_cc_toolchain_config_impl(ctx):
                 actions = all_link_actions,
                 flag_groups = [
                     flag_group(
-                        flags = ["-target", ctx.attr.target] + no_gc_sections,
+                        flags = ["-target", ctx.attr.target],
                     ),
                 ],
             ),
