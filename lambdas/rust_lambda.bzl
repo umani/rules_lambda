@@ -28,7 +28,7 @@ def rust_lambda(name, srcs, arch = "aarch64", visibility = ["//visibility:privat
 
     platform = "@rules_lambda//lambdas/platform:lambda_aarch64"
     if arch == "x86_64":
-        platform = "@rules_lambda//lambdas/platform:lambda_x64_86"
+        platform = "@rules_lambda//lambdas/platform:lambda_x86_64"
     elif arch != "aarch64":
         fail("Unsupported Lambda target architecture ", arch)
 

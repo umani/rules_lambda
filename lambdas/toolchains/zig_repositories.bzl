@@ -148,7 +148,7 @@ def define_toolchain(absolute_path):
     native.exports_files(["zig"], visibility = ["//visibility:public"])
     native.filegroup(name = "lib/std", srcs = native.glob(["lib/std/**"]))
 
-    for zigcpu in ["x64_86", "aarch64"]:
+    for zigcpu in ["x86_64", "aarch64"]:
         zigtarget = "{}-linux-gnu".format(zigcpu)
 
         absolute_tool_paths = {}
