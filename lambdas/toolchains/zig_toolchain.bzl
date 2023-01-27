@@ -117,34 +117,11 @@ def _zig_cc_toolchain_config_impl(ctx):
     default_linker_flags = feature(
         name = "default_linker_flags",
         enabled = True,
-        flag_sets = [
-            flag_set(
-                actions = all_link_actions,
-                flag_groups = [
-                    flag_group(
-                        flags = ["-target", ctx.attr.target],
-                    ),
-                ],
-            ),
-        ],
-    )
-
-    other_compile_flags = feature(
-        name = "other_compile_flags",
-        enabled = True,
-        flag_sets = [
-            flag_set(
-                actions = other_compile_actions,
-                flag_groups = [
-                    flag_group(flags = compiler_flags),
-                ],
-            ),
-        ],
+        flag_sets = [],
     )
 
     features = [
         compile_and_link_flags,
-        other_compile_flags,
         default_linker_flags,
     ] + _compilation_mode_features()
 

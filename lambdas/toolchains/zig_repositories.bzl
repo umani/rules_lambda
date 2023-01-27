@@ -21,13 +21,13 @@ ZIG_URL_TEMPLATE = "https://ziglang.org/download/{version}/zig-{host_platform}-{
 
 ZIG_NIGHTLY_URL_TEMPLATE = "https://ziglang.org/builds/zig-{host_platform}-{version}.tar.xz"
 
-_VERSION = "0.10.0-dev.3529+44a6172ed"
+_VERSION = "0.10.1"
 
 _SHA256 = {
-    "linux-x86_64": "11753bbb58acb5bbc133b678f9b8b8edf2c3603f1c5cd493afb3026f2ccd81f9",
-    "linux-aarch64": "7fc31ebc02de51091ba9d0176b0abb3a374f6f45cf111f7924becc67943bd854",
-    "macos-x86_64": "f098c41ab617718564f61fdd31f09066cd8fc1f1612f44c6b3c941a1faa6306f",
-    "macos-aarch64": "aa138ec924106e0cdad49cf4710efb91ff9ccef187a8b524e2747795aaff8f71",
+    "linux-x86_64": "6699f0e7293081b42428f32c9d9c983854094bd15fee5489f12c4cf4518cc380",
+    "linux-aarch64": "4a818171f9a0429082ee53b7e2bc7a68bf862cb0326df8ab6db0d1e2e8147aa7",
+    "macos-x86_64": "02483550b89d2a3070c2ed003357fd6e6a3059707b8ee3fbc0c67f83ca898437",
+    "macos-aarch64": "b9b00477ec5fa1f1b89f35a7d2a58688e019910ab80a65eac2a7417162737656",
 }
 
 ZIG_TOOL_PATH = "tools/{zig_tool}"
@@ -115,7 +115,7 @@ zig_repository = repository_rule(
 def zig_register_toolchains(
         register = [],
         version = _VERSION,
-        url_template = ZIG_NIGHTLY_URL_TEMPLATE,
+        url_template = ZIG_URL_TEMPLATE,
         sha256 = _SHA256):
     """Repository rule for the Zig toolchains.
 
