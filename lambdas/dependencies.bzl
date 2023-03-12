@@ -4,28 +4,33 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 
 bazel_skylib = struct(
-    version = "1.2.1",
-    sha = "f7be3474d42aae265405a592bb7da8e171919d74c16f082a5457840f06054728",
+    version = "1.4.1",
+    sha = "b8a1527901774180afc798aeb28c4634bdccf19c4d98e7bdd1ce79d1fe9aaad7",
 )
 
 aspect_bazel_lib = struct(
-    version = "1.10.0",
-    sha = "33332c0cd7b5238b5162b5177da7f45a05641f342cf6d04080b9775233900acf",
+    version = "1.29.2",
+    sha = "ee95bbc80f9ca219b93a8cc49fa19a2d4aa8649ddc9024f46abcdd33935753ca",
 )
 
 rules_rust = struct(
-    version = "0.9.0",
-    sha = "6bfe75125e74155955d8a9854a8811365e6c0f3d33ed700bc17f39e32522c822",
+    version = "0.18.0",
+    sha = "2466e5b2514772e84f9009010797b9cd4b51c1e6445bbd5b5e24848d90e6fb2e",
 )
 
 rules_pkg = struct(
-    version = "0.7.0",
-    sha = "8a298e832762eda1830597d64fe7db58178aa84cd5926d76d5b744d6558941c2",
+    version = "0.8.1",
+    sha = "8c20f74bca25d2d442b327ae26768c02cf3c99e93fad0381f32be9aab1967675",
 )
 
 rules_go = struct(
     version = "0.34.0",
     sha = "16e9fca53ed6bd4ff4ad76facc9b7b651a89db1689a2877d6fd7b82aa824e366",
+)
+
+bazel_zig_cc = struct(
+    version = "1.0.1",
+    sha = "e9f82bfb74b3df5ca0e67f4d4989e7f1f7ce3386c295fd7fda881ab91f83e509",
 )
 
 # WARNING: any changes in these macros may be BREAKING CHANGES for users
@@ -62,6 +67,16 @@ def rules_lambda_dependencies():
             ),
         ],
         sha256 = rules_pkg.sha,
+    )
+
+    maybe(
+        http_archive,
+        name = "bazel-zig-cc",
+        strip_prefix = "bazel-zig-cc-v{}".format(bazel_zig_cc.version),
+        urls = [
+            "https://git.sr.ht/~motiejus/bazel-zig-cc/archive/v{}.tar.gz".format(bazel_zig_cc.version),
+        ],
+        sha256 = bazel_zig_cc.sha,
     )
 
 def rust_lambda_dependencies():

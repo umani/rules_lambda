@@ -14,11 +14,9 @@ node_lambda_dependencies()
 
 rust_lambda_dependencies()
 
-load("//lambdas/toolchains:zig_repositories.bzl", "zig_register_toolchains")
+load("@bazel-zig-cc//toolchain:defs.bzl", zig_toolchains = "toolchains")
 
-zig_register_toolchains(
-    register = ["aarch64-linux-gnu"],
-)
+zig_toolchains()
 
 load("@aspect_bazel_lib//lib:repositories.bzl", "aspect_bazel_lib_dependencies")
 

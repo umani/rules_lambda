@@ -46,10 +46,12 @@ rust_lambda_dependencies()
 # Optional: if cross-compiling the Rust Lambdas, set up the Zig toolchain
 #			and possibly other required Rust toolchains.
 
-load("@rules_lambda//lambdas/toolchains:zig_repositories.bzl", "zig_register_toolchains")
+load("@bazel-zig-cc//toolchain:defs.bzl", zig_toolchains = "toolchains")
 
-zig_register_toolchains(
-    register = ["aarch64-linux-gnu"],
+zig_toolchains()
+
+register_toolchains(
+    "@zig_sdk//toolchain:linux_arm64_gnu.2.34",
 )
 
 # Example: cross-compiles Rust from macOS to aarch64 Linux
