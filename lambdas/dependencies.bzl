@@ -74,7 +74,7 @@ def rules_lambda_dependencies():
         name = "bazel-zig-cc",
         strip_prefix = "bazel-zig-cc-v{}".format(bazel_zig_cc.version),
         urls = [
-            "https://git.sr.ht/~motiejus/bazel-zig-cc/archive/v{}.tar.gz".format(bazel_zig_cc.version),
+            "https://github.com/uber/bazel-zig-cc/archive/refs/tags/v{}.tar.gz".format(bazel_zig_cc.version),
         ],
         sha256 = bazel_zig_cc.sha,
     )
