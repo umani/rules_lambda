@@ -72,7 +72,7 @@ def rules_lambda_dependencies():
     maybe(
         http_archive,
         name = "bazel-zig-cc",
-        strip_prefix = "bazel-zig-cc-v{}".format(bazel_zig_cc.version),
+        strip_prefix = "bazel-zig-cc-{}".format(bazel_zig_cc.version),
         urls = [
             "https://github.com/uber/bazel-zig-cc/archive/refs/tags/v{}.tar.gz".format(bazel_zig_cc.version),
         ],
