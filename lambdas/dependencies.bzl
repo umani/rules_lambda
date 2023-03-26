@@ -30,7 +30,7 @@ rules_go = struct(
 
 bazel_zig_cc = struct(
     version = "1.0.1",
-    sha = "e9f82bfb74b3df5ca0e67f4d4989e7f1f7ce3386c295fd7fda881ab91f83e509",
+    sha = "a1c27343c0c5f4a9a5c5ac573f4e5388481380f3f5b09c2a551645808ab2c365",
 )
 
 # WARNING: any changes in these macros may be BREAKING CHANGES for users
