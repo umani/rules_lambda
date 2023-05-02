@@ -30,7 +30,7 @@ rules_go = struct(
 
 bazel_zig_cc = struct(
     version = "1.0.1",
-    sha = "a1c27343c0c5f4a9a5c5ac573f4e5388481380f3f5b09c2a551645808ab2c365",
+    sha = "e9f82bfb74b3df5ca0e67f4d4989e7f1f7ce3386c295fd7fda881ab91f83e509",
 )
 
 # WARNING: any changes in these macros may be BREAKING CHANGES for users
@@ -72,9 +72,12 @@ def rules_lambda_dependencies():
     maybe(
         http_archive,
         name = "bazel-zig-cc",
-        strip_prefix = "bazel-zig-cc-{}".format(bazel_zig_cc.version),
+        strip_prefix = "bazel-zig-cc-v{}".format(bazel_zig_cc.version),
         urls = [
-            "https://github.com/uber/bazel-zig-cc/archive/refs/tags/v{}.tar.gz".format(bazel_zig_cc.version),
+            "https://github.com/uber/hermetic_cc_toolchain/releases/download/v{}/v{}.tar.gz".format(
+                bazel_zig_cc.version,
+                bazel_zig_cc.version,
+            ),
         ],
         sha256 = bazel_zig_cc.sha,
     )
